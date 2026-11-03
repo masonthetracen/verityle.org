@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirect Notice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-main: #202124;
+      --text-sub: #5f6368;
+      --accent-blue: #1a73e8;
+      --accent-blue-hover: #1557b0;
+      --border-color: #dadce0;
+      --code-bg: #f1f3f4;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #202124;
+        --card-bg: #292a2d;
+        --text-main: #e8eaed;
+        --text-sub: #9aa0a6;
+        --accent-blue: #8ab4f8;
+        --accent-blue-hover: #aecbfa;
+        --border-color: #3c4043;
+        --code-bg: #303134;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 640px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 32px 28px;
+      box-shadow: 0 1px 3px rgba(60,64,67,0.08), 0 4px 8px rgba(60,64,67,0.04);
+    }
+
+    .logo-container {
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .google-logo {
+      height: 28px;
+    }
+
+    .notice-title {
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .notice-body {
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .url-box {
+      background: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      word-break: break-all;
+      font-family: monospace;
+      font-size: 14px;
+      color: var(--accent-blue);
+    }
+
+    .url-box a {
+      color: var(--accent-blue);
+      text-decoration: underline;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s, box-shadow 0.2s;
+      border: none;
+    }
+
+    .btn-primary {
+      background-color: var(--accent-blue);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-blue-hover);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--accent-blue);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(26, 115, 232, 0.04);
+    }
+
+    .warning-banner {
+      font-size: 13px;
+      color: var(--text-sub);
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+      line-height: 1.4;
+    }
+
+    /* Inspector Drawer */
+    .inspector-toggle {
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--accent-blue);
+      cursor: pointer;
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .inspector-panel {
+      display: none;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--border-color);
+      font-size: 13px;
+    }
+
+    .inspector-panel.open {
+      display: block;
+    }
+
+    .inspector-input {
+      width: 100%;
+      padding: 8px 12px;
+      margin: 8px 0 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background: var(--card-bg);
+      color: var(--text-main);
+      font-family: monospace;
+    }
+
+    .hex-display {
+      background: var(--code-bg);
+      padding: 12px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
+    footer {
+      margin-top: 32px;
+      font-size: 12px;
+      color: var(--text-sub);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Google Logo Header -->
+    <div class="logo-container">
+      <svg class="google-logo" viewBox="0 0 74 24" width="74" height="24" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#4285F4" d="M9.24 10.19v3.12h7.39c-.29 1.93-2.22 5.66-7.39 5.66-4.45 0-8.08-3.68-8.08-8.22s3.63-8.22 8.08-8.22c2.54 0 4.23 1.08 5.21 2.01l2.47-2.38C15.34 1.01 12.56 0 9.24 0 4.13 0 0 4.13 0 9.25s4.13 9.25 9.24 9.25c5.35 0 8.89-3.76 8.89-9.05 0-.61-.06-1.07-.13-1.53H9.24z"/>
+        <path fill="#EA4335" d="M24.87 9.25c-3.13 0-5.67 2.41-5.67 5.63s2.54 5.63 5.67 5.63c3.13 0 5.67-2.41 5.67-5.63s-2.54-5.63-5.67-5.63zm0 9.05c-1.72 0-3.21-1.42-3.21-3.42 0-2.02 1.49-3.42 3.21-3.42 1.72 0 3.21 1.4 3.21 3.42 0 2-1.49 3.42-3.21 3.42z"/>
+        <path fill="#FBBC05" d="M37.36 9.25c-3.13 0-5.67 2.41-5.67 5.63s2.54 5.63 5.67 5.63c3.13 0 5.67-2.41 5.67-5.63s-2.54-5.63-5.67-5.63zm0 9.05c-1.72 0-3.21-1.42-3.21-3.42 0-2.02 1.49-3.42 3.21-3.42 1.72 0 3.21 1.4 3.21 3.42 0 2-1.49 3.42-3.21 3.42z"/>
+        <path fill="#4285F4" d="M49.69 9.25c-3.04 0-5.52 2.46-5.52 5.63 0 3.15 2.48 5.63 5.52 5.63 1.78 0 2.94-.74 3.61-1.53v1.23c0 2.15-1.15 3.3-3 3.3-1.51 0-2.45-1.08-2.83-1.99l-2.14.89c.62 1.49 2.26 3.3 4.97 3.3 2.89 0 5.34-1.7 5.34-5.87V9.58h-2.35v.98c-.68-.81-1.85-1.31-3.6-1.31zm.26 9.05c-1.69 0-3.03-1.42-3.03-3.42 0-2.02 1.34-3.42 3.03-3.42 1.67 0 2.97 1.4 2.97 3.42 0 1.98-1.3 3.42-2.97 3.42z"/>
+        <path fill="#34A853" d="M57.29 0h2.46v20.12h-2.46z"/>
+        <path fill="#EA4335" d="M66.69 9.25c-2.83 0-5.18 2.3-5.18 5.63 0 3.28 2.46 5.63 5.55 5.63 2.5 0 3.93-1.53 4.54-2.43l-1.85-1.23c-.51.76-1.31 1.46-2.69 1.46-1.38 0-2.33-.63-2.87-1.74l7.63-3.16-.26-.64c-.48-1.31-1.96-3.52-4.87-3.52zm.17 2.19c1.01 0 1.83.51 2.11 1.25l-5.16 2.14c-.02-2.05 1.51-3.39 3.05-3.39z"/>
+      </svg>
+    </div>
+
+    <!-- Notice Heading -->
+    <h1 class="notice-title">Redirect Notice</h1>
+    <p class="notice-body">
+      The page you were on is trying to redirect you to an external destination:
+    </p>
+
+    <!-- Target URL Box -->
+    <div class="url-box" id="urlBox">
+      <span id="targetUrlText">Loading destination...</span>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+      <a id="proceedBtn" href="#" class="btn btn-primary" rel="noopener noreferrer">Proceed to Destination</a>
+      <button onclick="window.history.back()" class="btn btn-secondary">Go Back</button>
+    </div>
+
+    <!-- Safety Warning -->
+    <div class="warning-banner">
+      <strong>Notice:</strong> Google is not responsible for the content of external sites. Make sure you trust the destination domain before proceeding.
+    </div>
+
+    <!-- Inspector Toggle -->
+    <button class="inspector-toggle" onclick="toggleInspector()">
+      <span id="toggleIcon">▶</span> Inspect Token / Custom Link Tester
+    </button>
+
+    <!-- Developer Token Inspector Panel -->
+    <div class="inspector-panel" id="inspectorPanel">
+      <label for="tokenInput" style="font-weight: 500;">Test URL or Token (Base64 / CAES Protobuf):</label>
+      <input type="text" id="tokenInput" class="inspector-input" placeholder="Paste url= or CAES... token here" />
+      
+      <div style="margin-top: 10px;">
+        <strong>Decoded Payload String / Breakdown:</strong>
+        <div class="hex-display" id="hexDisplay">Parsing...</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Recreated Google Redirect Notice • Hosted on GitHub Pages
+  </footer>
+
+  <script>
+    const DEFAULT_TOKEN = "CAESUAHrOzAVGZeTKlNwNg_dZ3ilV31v7ykoL4afZ5EfRqOKIklGS0KCkRUpnYC0kN89PdF8aURdiWh3_RChBQjshcH-o7PVOFQMlG6trFJR-yTJ";
+
+    function parseParams() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('url') || params.get('q') || params.get('dest') || DEFAULT_TOKEN;
+    }
+
+    function decodeTokenOrUrl(rawInput) {
+      if (rawInput.startsWith("http://") || rawInput.startsWith("https://")) {
+        return {
+          url: rawInput,
+          hex: "Direct URL passed (No token wrapper)",
+          raw: rawInput
+        };
+      }
+
+      try {
+        let base64 = rawInput.replace(/-/g, '+').replace(/_/g, '/');
+        while (base64.length % 4 !== 0) {
+          base64 += '=';
+        }
+        const binaryStr = atob(base64);
+        
+        let hexArr = [];
+        let printable = "";
+        for (let i = 0; i < binaryStr.length; i++) {
+          const code = binaryStr.charCodeAt(i);
+          hexArr.push(code.toString(16).padStart(2, '0'));
+          printable += (code >= 32 && code <= 126) ? binaryStr[i] : '.';
+        }
+
+        const urlMatches = binaryStr.match(/https?:\/\/[^\s\0\x00-\x1F\x7F-\x9F]+/g);
+        let extractedUrl = urlMatches ? urlMatches[0] : null;
+
+        if (!extractedUrl) {
+          extractedUrl = "https://www.google.com/search?q=" + encodeURIComponent(rawInput);
+        }
+
+        return {
+          url: extractedUrl,
+          hex: `Length: ${binaryStr.length} bytes\nHex Dump:\n${hexArr.join(' ')}\n\nASCII String:\n${printable}`,
+          raw: rawInput
+        };
+      } catch (e) {
+        return {
+          url: rawInput.includes('.') ? (rawInput.startsWith('http') ? rawInput : 'https://' + rawInput) : 'https://www.google.com',
+          hex: "Could not parse as Base64/Protobuf token. Raw text string.",
+          raw: rawInput
+        };
+      }
+    }
+
+    function updateNotice(inputVal) {
+      const result = decodeTokenOrUrl(inputVal);
+      const targetUrlText = document.getElementById('targetUrlText');
+      const proceedBtn = document.getElementById('proceedBtn');
+      const hexDisplay = document.getElementById('hexDisplay');
+
+      targetUrlText.innerHTML = `<a href="${result.url}" rel="noopener noreferrer">${result.url}</a>`;
+      proceedBtn.href = result.url;
+      hexDisplay.textContent = result.hex;
+    }
+
+    function toggleInspector() {
+      const panel = document.getElementById('inspectorPanel');
+      const icon = document.getElementById('toggleIcon');
+      if (panel.classList.contains('open')) {
+        panel.classList.remove('open');
+        icon.textContent = '▶';
+      } else {
+        panel.classList.add('open');
+        icon.textContent = '▼';
+      }
+    }
+
+    const currentInput = parseParams();
+    document.getElementById('tokenInput').value = currentInput;
+    updateNotice(currentInput);
+
+    document.getElementById('tokenInput').addEventListener('input', (e) => {
+      updateNotice(e.target.value.trim());
+    });
+  </script>
+</body>
+</html>
